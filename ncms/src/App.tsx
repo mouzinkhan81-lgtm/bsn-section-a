@@ -673,8 +673,8 @@ export default function App() {
       downloadAnchor.setAttribute('href', dataStr);
       downloadAnchor.setAttribute('download', `KMU_Swabi_BSN2_Master_Backup_${new Date().toISOString().split('T')[0]}.json`);
       document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
+      //downloadAnchor.click();
+      //downloadAnchor.remove();
       showAlert('Local JSON backup downloaded successfully!', 'success');
     } catch {
       showAlert('Failed to generate JSON backup file', 'error');
