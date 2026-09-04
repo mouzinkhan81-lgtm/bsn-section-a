@@ -1,0 +1,52 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="kmu-top-arc" d="M 46,200 A 154,154 0 1,1 354,200" fill="none" />
+    <path id="kmu-bottom-arc" d="M 90,270 A 120,120 0 0,0 310,270" fill="none" />
+    <linearGradient id="kmu-maroon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#B91C1C" />
+      <stop offset="50%" stopColor="#991B1B" />
+      <stop offset="100%" stopColor="#7F1D1D" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="200" cy="200" r="198" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+
+  <!-- Top Arched Text -->
+  <text fill="#111827" font-size="24" font-weight="900" font-family="system-ui, sans-serif" letter-spacing="3.2">
+    <textPath href="#kmu-top-arc" startOffset="50%" text-anchor="middle">
+      KHYBER MEDICAL UNIVERSITY
+    </textPath>
+  </text>
+
+  <!-- Center Emblem -->
+  <g transform="translate(100, 115)">
+    <!-- Caduceus Ribbon in Crimson Maroon -->
+    <g>
+      <polygon points="28,2 38,15 28,28 18,15" fill="url(#kmu-maroon-grad)" />
+      <rect x="25" y="15" width="6" height="135" rx="3" fill="#7A1313" />
+      <path d="M 3,42 L 53,24 L 53,38 L 18,52 Z" fill="url(#kmu-maroon-grad)" />
+      <path d="M 3,42 L 18,52 L 18,74 L 3,64 Z" fill="#7A1313" />
+      <path d="M 3,82 L 53,64 L 53,78 L 18,92 Z" fill="url(#kmu-maroon-grad)" />
+      <path d="M 3,82 L 18,92 L 18,114 L 3,104 Z" fill="#7A1313" />
+      <path d="M 3,122 L 53,104 L 53,118 L 18,132 Z" fill="url(#kmu-maroon-grad)" />
+      <path d="M 3,122 L 18,132 L 28,142 L 28,150 L 3,140 Z" fill="#7A1313" />
+    </g>
+
+    <!-- IHS Text -->
+    <text x="68" y="108" fill="#111827" font-size="92" font-weight="900" font-family="system-ui, sans-serif" letter-spacing="-2">
+      IHS
+    </text>
+
+    <!-- INSTITUTE OF HEALTH SCIENCES -->
+    <text x="70" y="132" fill="#111827" font-size="11" font-weight="800" font-family="system-ui, sans-serif" letter-spacing="0.8">
+      INSTITUTE OF HEALTH SCIENCES
+    </text>
+  </g>
+
+  <!-- Bottom Arched Text: SWABI -->
+  <text fill="#111827" font-size="38" font-weight="900" font-family="system-ui, sans-serif" letter-spacing="6">
+    <textPath href="#kmu-bottom-arc" startOffset="50%" text-anchor="middle">
+      SWABI
+    </textPath>
+  </text>
+</svg>

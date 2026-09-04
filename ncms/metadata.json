@@ -1,0 +1,6 @@
+{
+  "name": "Khyber Medical University Swabi - BSN 2nd Semester Portal",
+  "description": "Official Academic, Attendance, Fee Management, and Student Portal for BSN 2nd Semester (Section A) at Khyber Medical University Swabi Campus.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
