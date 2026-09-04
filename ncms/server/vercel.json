@@ -1,15 +1,19 @@
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "server/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server/server.js"
-    }
-  ]
-}
+const express = require('express');
+const path = require('path');
+const app = express();
+
+// Middleware
+app.use(express.json());
+
+// API Route (Test ke liye)
+app.get('/api', (req, res) => {
+  res.json({ message: "BSN Section A API is working!" });
+});
+
+// ✅ ROOT ROUTE - Ye 404 hatane ke liye zaroori hai
+app.get('/', (req, res) => {
+  res.send('🎉 BSN Section A Website is LIVE on Vercel!');
+});
+
+// ✅ VERCEL KE LIYE EXPORT (YE SAB SE ZAROORI HAI)
+module.exports = app;
