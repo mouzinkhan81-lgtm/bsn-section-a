@@ -918,7 +918,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                             </td>
                             <td className="py-3 px-4">
                               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                                Verified
+                                UnVerified
                               </span>
                             </td>
                           </tr>
