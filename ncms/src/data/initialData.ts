@@ -120,9 +120,9 @@ export const INITIAL_STUDENTS_MOCK: Student[] = RAW_KMU_STUDENTS.map(item => {
     section: 'Section A',
     fee: {
       totalFee: 102800,
-      paidFee: 102800,
-      pendingFee: 0,
-      status: 'Paid',
+      paidFee: 0,
+      pendingFee: 102800,
+      status: 'Unpaid',
       payments: [
         {
           receiptNo: `KMU-SWB-REC-${pad}`,
