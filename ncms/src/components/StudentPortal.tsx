@@ -58,7 +58,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [selectedMonthFilter, setSelectedMonthFilter] = useState<string>('all');
-    const [slipPreview, setSlipPreview] = useState<string | null>(null);
+  const [slipPreview, setSlipPreview] = useState<string | null>(null);
   const [uploadingSlip, setUploadingSlip] = useState<boolean>(false);
 
   // Filtered attendance list based on selected academic month
@@ -154,7 +154,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     showAlert('Portal password changed successfully! Use your new password on next login.', 'success');
   };
 
-   const handleSlipFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSlipFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -206,6 +206,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     setUploadingSlip(false);
     showAlert('Fee slip submitted successfully! Awaiting verification by KMU Admin/Faculty.', 'success');
   };
+
   // Download personal JSON transcript
   const handleDownloadPersonalRecord = () => {
     try {
@@ -943,53 +944,55 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
               </div>
 
               {/* Upload Fee Slip Section */}
-{student.fee?.pendingFee > 0 && (
-  <div className="mt-2 bg-red-50/50 border border-red-200 rounded-xl p-4">
-    <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 mb-1">
-      <CreditCard className="w-4 h-4 text-red-800" />
-      <span>Submit Your Fee Payment Slip</span>
-    </h3>
-    <p className="text-xs text-slate-600 mb-1">
-      Due Date: <strong className="text-red-800">{student.fee?.dueDate ? new Date(student.fee.dueDate).toLocaleDateString('en-PK', { dateStyle: 'medium' }) : 'N/A'}</strong>
-    </p>
-    <p className="text-xs text-slate-500 mb-3">
-      Deposit your fee at MCB Bank (Account: 0977029551007019) and upload a photo of your paid bank slip below. Your submission will be marked as <strong>"Pending Verification"</strong> until KMU Admin/Faculty confirms it.
-    </p>
+              {student.fee?.pendingFee > 0 && (
+                <div className="mt-2 bg-red-50/50 border border-red-200 rounded-xl p-4">
+                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 mb-1">
+                    <CreditCard className="w-4 h-4 text-red-800" />
+                    <span>Submit Your Fee Payment Slip</span>
+                  </h3>
+                  <p className="text-xs text-slate-600 mb-1">
+                    Due Date: <strong className="text-red-800">{student.fee?.dueDate ? new Date(student.fee.dueDate).toLocaleDateString('en-PK', { dateStyle: 'medium' }) : 'N/A'}</strong>
+                  </p>
+                  <p className="text-xs text-slate-500 mb-3">
+                    Deposit your fee at MCB Bank (Account: 0977029551007019) and upload a photo of your paid bank slip below. Your submission will be marked as <strong>"Pending Verification"</strong> until KMU Admin/Faculty confirms it.
+                  </p>
 
-    <div className="flex flex-wrap items-center gap-3">
-      <label className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer transition-colors shadow-xs flex items-center gap-1.5">
-        <FileText className="w-3.5 h-3.5 text-red-800" />
-        <span>Choose Slip Image</span>
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={handleSlipFileChange}
-        />
-      </label>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <label className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer transition-colors shadow-xs flex items-center gap-1.5">
+                      <FileText className="w-3.5 h-3.5 text-red-800" />
+                      <span>Choose Slip Image</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleSlipFileChange}
+                      />
+                    </label>
 
-      {slipPreview && (
-        <img src={slipPreview} alt="Fee Slip Preview" className="h-16 rounded-lg border border-slate-300 object-cover" />
-      )}
+                    {slipPreview && (
+                      <img src={slipPreview} alt="Fee Slip Preview" className="h-16 rounded-lg border border-slate-300 object-cover" />
+                    )}
 
-      <button
-        type="button"
-        disabled={!slipPreview || uploadingSlip}
-        onClick={handleSubmitFeeSlip}
-        className={`text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-xs cursor-pointer ${
-          slipPreview
-            ? 'bg-red-800 hover:bg-red-900 text-white'
-            : 'bg-slate-200 text-slate-400 cursor-not-allowed'
-        }`}
-      >
-        {uploadingSlip ? 'Submitting...' : 'Submit Fee Slip'}
-      </button>
-    </div>
-  </div>
-)}{/* Official Paid Receipts Log */}
+                    <button
+                      type="button"
+                      disabled={!slipPreview || uploadingSlip}
+                      onClick={handleSubmitFeeSlip}
+                      className={`text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-xs cursor-pointer ${
+                        slipPreview
+                          ? 'bg-red-800 hover:bg-red-900 text-white'
+                          : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                      }`}
+                    >
+                      {uploadingSlip ? 'Submitting...' : 'Submit Fee Slip'}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Official Paid Receipts Log */}
               <div className="mt-6">
                 <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
-                  Verified Payment Receipts
+                  Payment Receipts
                 </h3>
                 <div className="overflow-x-auto border border-slate-200 rounded-xl">
                   <table className="w-full text-left text-xs text-slate-700">
@@ -1015,18 +1018,20 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                               Rs. {Number(p.amount).toLocaleString()}
                             </td>
                             <td className="py-3 px-4">
-                           <td className="py-3 px-4">
-  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-    p.verificationStatus === 'Verified' 
-      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
-      : p.verificationStatus === 'Pending Verification'
-      ? 'bg-amber-50 text-amber-800 border border-amber-200'
-      : 'bg-red-50 text-red-800 border border-red-200'
-  }`}>
-    {p.verificationStatus || 'Unverified'}
-  </span>
-</td>
-
+                              <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                                p.verificationStatus === 'Verified' 
+                                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
+                                  : p.verificationStatus === 'Pending Verification'
+                                  ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                                  : 'bg-red-50 text-red-800 border border-red-200'
+                              }`}>
+                                {p.verificationStatus || 'Unverified'}
+                              </span>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
                           <td colSpan={5} className="py-4 px-4 text-center text-slate-400">
                             No payment history recorded.
                           </td>
