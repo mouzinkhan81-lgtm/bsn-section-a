@@ -162,19 +162,19 @@ export default function App() {
       // 1) Always keep a fresh full snapshot in localStorage instantly
       localStorage.setItem(STORAGE_KEY_AUTO_BACKUP, JSON.stringify(autoBackupData));
 
-      // 2) Auto-download an actual backup file, throttled to once per day
-      const today = new Date().toISOString().split('T')[0];
-      const lastAutoDownload = localStorage.getItem(STORAGE_KEY_LAST_AUTO_DOWNLOAD);
-      if (lastAutoDownload !== today) {
-        const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(autoBackupData, null, 2))}`;
-        const downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute('href', dataStr);
-        downloadAnchor.setAttribute('download', `KMU_Swabi_BSN2_AutoBackup_${today}.json`);
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        downloadAnchor.remove();
-        localStorage.setItem(STORAGE_KEY_LAST_AUTO_DOWNLOAD, today);
-      }
+      // // 2) Auto-download an actual backup file, throttled to once per day
+      // const today = new Date().toISOString().split('T')[0];
+      // const lastAutoDownload = localStorage.getItem(STORAGE_KEY_LAST_AUTO_DOWNLOAD);
+      // if (lastAutoDownload !== today) {
+      //   const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(autoBackupData, null, 2))}`;
+      //   const downloadAnchor = document.createElement('a');
+      //   downloadAnchor.setAttribute('href', dataStr);
+      //   downloadAnchor.setAttribute('download', `KMU_Swabi_BSN2_AutoBackup_${today}.json`);
+      //   document.body.appendChild(downloadAnchor);
+      //   downloadAnchor.click();
+      //   downloadAnchor.remove();
+      //   localStorage.setItem(STORAGE_KEY_LAST_AUTO_DOWNLOAD, today);
+      // }
 
       // 3) Debounced MongoDB backup — waits 3s after the last change before sending,
       //    so rapid edits (typing, quick clicks) don't spam the database.
