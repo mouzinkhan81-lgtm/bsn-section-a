@@ -58,6 +58,8 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [selectedMonthFilter, setSelectedMonthFilter] = useState<string>('all');
+    const [slipPreview, setSlipPreview] = useState<string | null>(null);
+  const [uploadingSlip, setUploadingSlip] = useState<boolean>(false);
 
   // Filtered attendance list based on selected academic month
   const activeAttendanceRecords = (student.attendance || []).filter(a => {
@@ -152,6 +154,58 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     showAlert('Portal password changed successfully! Use your new password on next login.', 'success');
   };
 
+   const handleSlipFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 3 * 1024 * 1024) {
+      showAlert('File is too large. Please upload an image under 3MB.', 'error');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setSlipPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleSubmitFeeSlip = () => {
+    if (!slipPreview) {
+      showAlert('Please select your fee slip image first.', 'error');
+      return;
+    }
+
+    setUploadingSlip(true);
+
+    const receiptNo = `KMU-SWB-REC-${student.rollNo.split('-').pop()}-${Date.now().toString().slice(-4)}`;
+    const nowIso = new Date().toISOString();
+
+    const newPayment = {
+      receiptNo,
+      amount: student.fee?.pendingFee || student.fee?.totalFee || 102800,
+      date: nowIso,
+      slipImage: slipPreview,
+      verificationStatus: 'Pending Verification'
+    };
+
+    const updatedStudent: Student = {
+      ...student,
+      fee: {
+        ...student.fee,
+        totalFee: student.fee?.totalFee || 102800,
+        paidFee: student.fee?.paidFee || 0,
+        pendingFee: student.fee?.pendingFee || 102800,
+        status: student.fee?.status || 'Unpaid',
+        payments: [...(student.fee?.payments || []), newPayment]
+      }
+    };
+
+    onUpdateStudent(updatedStudent);
+    setSlipPreview(null);
+    setUploadingSlip(false);
+    showAlert('Fee slip submitted successfully! Awaiting verification by KMU Admin/Faculty.', 'success');
+  };
   // Download personal JSON transcript
   const handleDownloadPersonalRecord = () => {
     try {
@@ -888,7 +942,51 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                 </div>
               </div>
 
-              {/* Official Paid Receipts Log */}
+              {/* Upload Fee Slip Section */}
+{student.fee?.pendingFee > 0 && (
+  <div className="mt-2 bg-red-50/50 border border-red-200 rounded-xl p-4">
+    <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 mb-1">
+      <CreditCard className="w-4 h-4 text-red-800" />
+      <span>Submit Your Fee Payment Slip</span>
+    </h3>
+    <p className="text-xs text-slate-600 mb-1">
+      Due Date: <strong className="text-red-800">{student.fee?.dueDate ? new Date(student.fee.dueDate).toLocaleDateString('en-PK', { dateStyle: 'medium' }) : 'N/A'}</strong>
+    </p>
+    <p className="text-xs text-slate-500 mb-3">
+      Deposit your fee at MCB Bank (Account: 0977029551007019) and upload a photo of your paid bank slip below. Your submission will be marked as <strong>"Pending Verification"</strong> until KMU Admin/Faculty confirms it.
+    </p>
+
+    <div className="flex flex-wrap items-center gap-3">
+      <label className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 text-xs font-bold px-3.5 py-2 rounded-xl cursor-pointer transition-colors shadow-xs flex items-center gap-1.5">
+        <FileText className="w-3.5 h-3.5 text-red-800" />
+        <span>Choose Slip Image</span>
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleSlipFileChange}
+        />
+      </label>
+
+      {slipPreview && (
+        <img src={slipPreview} alt="Fee Slip Preview" className="h-16 rounded-lg border border-slate-300 object-cover" />
+      )}
+
+      <button
+        type="button"
+        disabled={!slipPreview || uploadingSlip}
+        onClick={handleSubmitFeeSlip}
+        className={`text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-xs cursor-pointer ${
+          slipPreview
+            ? 'bg-red-800 hover:bg-red-900 text-white'
+            : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+        }`}
+      >
+        {uploadingSlip ? 'Submitting...' : 'Submit Fee Slip'}
+      </button>
+    </div>
+  </div>
+)}{/* Official Paid Receipts Log */}
               <div className="mt-6">
                 <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
                   Verified Payment Receipts
@@ -917,7 +1015,17 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                               Rs. {Number(p.amount).toLocaleString()}
                             </td>
                             <td className="py-3 px-4">
-                              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                           <td className="py-3 px-4">
+  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+    p.verificationStatus === 'Verified' 
+      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
+      : p.verificationStatus === 'Pending Verification'
+      ? 'bg-amber-50 text-amber-800 border border-amber-200'
+      : 'bg-red-50 text-red-800 border border-red-200'
+  }`}>
+    {p.verificationStatus || 'Unverified'}
+  </span>
+</td>
                                 UnVerified
                               </span>
                             </td>

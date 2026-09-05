@@ -18,6 +18,8 @@ export interface PaymentRecord {
   amount: number;
   date: string;
   method?: string;
+  slipImage?: string;
+  verificationStatus?: 'Pending Verification' | 'Verified' | 'Rejected' | string;
 }
 
 export interface StudentFee {
@@ -26,6 +28,7 @@ export interface StudentFee {
   pendingFee: number;
   status: 'Paid' | 'Unpaid' | 'Partial' | string;
   payments: PaymentRecord[];
+  dueDate?: string;
 }
 
 export interface Student {

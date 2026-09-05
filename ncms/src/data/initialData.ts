@@ -123,7 +123,8 @@ export const INITIAL_STUDENTS_MOCK: Student[] = RAW_KMU_STUDENTS.map(item => {
       paidFee: 0,
       pendingFee: 102800,
       status: 'Unpaid',
-      payments: []
+      payments: [],
+      dueDate: '2026-09-25'
     },
     attendance: [], // Fresh starting attendance - zero prior records
     subjects: ['NUR-201', 'NUR-202', 'NUR-203', 'QR-204', 'IS-205', 'FQ-206', 'NUT-207']
