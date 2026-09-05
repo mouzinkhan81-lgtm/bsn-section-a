@@ -74,7 +74,7 @@ const RAW_KMU_STUDENTS: Array<{ roll: number; name: string; fatherName: string; 
   { roll: 28, name: 'Hakim Shah', fatherName: 'Zahir Shah', phone: '+92 349 6712416' },
   { roll: 29, name: 'Muhammad Hamza', fatherName: 'Bakht Bacha', phone: '+92 336 5612417' },
   { roll: 30, name: 'Mohammad Asif', fatherName: 'Khaslamir', phone: '+92 318 4512418' },
-  { roll: 31, name: 'Mouzain Khan', fatherName: 'Amjad Ali', phone: '+92 300 3412419' },
+  { roll: 31, name: 'Mouzin Khan', fatherName: 'Amjad Ali', phone: '+92 300 3412419' },
   { roll: 32, name: 'Rabia Noor', fatherName: 'Shaukat Zaman', phone: '+92 340 2312420' },
   { roll: 33, name: 'Abbas Khan', fatherName: 'Hayat muhammad', phone: '+92 337 1212421' },
   { roll: 34, name: 'Ali Maghawia', fatherName: 'Naeem Khan', phone: '+92 319 0112422' },
@@ -123,13 +123,7 @@ export const INITIAL_STUDENTS_MOCK: Student[] = RAW_KMU_STUDENTS.map(item => {
       paidFee: 0,
       pendingFee: 102800,
       status: 'Unpaid',
-      payments: [
-        {
-          receiptNo: `KMU-SWB-REC-${pad}`,
-          amount: 102800,
-          date: new Date().toISOString()
-        }
-      ]
+      payments: []
     },
     attendance: [], // Fresh starting attendance - zero prior records
     subjects: ['NUR-201', 'NUR-202', 'NUR-203', 'QR-204', 'IS-205', 'FQ-206', 'NUT-207']
