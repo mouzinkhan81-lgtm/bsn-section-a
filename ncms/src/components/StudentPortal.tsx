@@ -1026,13 +1026,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     {p.verificationStatus || 'Unverified'}
   </span>
 </td>
-                                UnVerified
-                              </span>
-                            </td>
-                          </tr>
-                        ))
-                      ) : (
-                        <tr>
+
                           <td colSpan={5} className="py-4 px-4 text-center text-slate-400">
                             No payment history recorded.
                           </td>
