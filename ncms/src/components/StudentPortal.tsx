@@ -615,7 +615,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                     </p>
                     <div className="pt-2 border-t border-emerald-200 text-xs text-slate-700 flex justify-between font-mono">
                       <span>Total Paid:</span>
-                      <strong className="text-slate-900">Rs. {(student.fee?.paidFee || 102800).toLocaleString()}</strong>
+                      <strong className="text-slate-900">Rs. {(student.fee?.paidFee ?? 0).toLocaleString()}</strong>
                     </div>
                   </div>
 
@@ -874,7 +874,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                 <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl">
                   <span className="text-xs text-slate-500 block">Amount Paid (Cleared)</span>
                   <span className="text-2xl font-black text-emerald-700 font-mono mt-1 block">
-                    Rs. {(student.fee?.paidFee || 102800).toLocaleString()}
+                    Rs. {(student.fee?.paidFeepaidFee ?? 0 || 102800).toLocaleString()}
                   </span>
                   <span className="text-[10px] text-emerald-600 font-semibold">✓ 100% Fully Settled</span>
                 </div>
