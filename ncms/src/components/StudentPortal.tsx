@@ -182,7 +182,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
         },
         financialFeeStatus: {
           totalSemesterFee: student.fee?.totalFee || 102800,
-          paidAmount: student.fee?.paidFee || 102800,
+          paidAmount: student.fee?.paidFee ?? 0,
           pendingAmount: student.fee?.pendingFee || 0,
           feeStatus: student.fee?.status || 'Paid',
           paymentHistory: student.fee?.payments || []
